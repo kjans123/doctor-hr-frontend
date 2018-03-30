@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import FetchButton from './FetchButton.js'
 
 class App extends React.Component {
   render() {
