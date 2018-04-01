@@ -57,12 +57,16 @@ class TEXT_field extends React.Component {
       const hrData = [];
       for (let i=0; i < response.data.all_heart_rates.length; i++) {
         hrData.push({
-          "hr": response.data.all_heart_rates[i]
+          "hr": response.data.all_heart_rates[i],
+          "date": response.data.all_times[i]
         });
       }
       console.log(hrData);
       this.setState({"patientData": hrData});
       console.log(this.state.patientData);
+      let date_list = hrData.map((date, index, hrData) => {
+        console.log(date.date)
+      })
     })
   }
 
@@ -83,22 +87,10 @@ class TEXT_field extends React.Component {
             primary={true}
             onClick = {this.getData}/>
             <div style={styles.relative}>
-              <Table selectable={false}>
-                <TableHeader>
-                  <TableRow>
-                    <TableHeaderColumn>"Date"</TableHeaderColumn>
-                    <TableHeaderColumn>"Heart Rate"</TableHeaderColumn>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {
-                    this.state.patientData.map((date, index) => (
-                      <TableRow>{this.state.patientData.date}</TableRow>
-                    ))
-                  }
-                </TableBody>
-
-              </Table></div>
+              {this.state.patientData.map((date,index) => (
+                <p>{date.date}: <b>{date.hr} bpm</b></p>
+              ))}
+            </div>
         </div>
       </MuiThemeProvider>
     );
