@@ -30,6 +30,24 @@ var styles = {
 
   "relative": {
     "position": "relative"
+  },
+
+  "table": {
+    "width": "100%",
+    "border": "2px solid blue",
+    "border-collapse": "collapse"
+  },
+
+  "td": {
+    "border": "1px solid black",
+    "border-collapse": "collapse",
+    "padding": "5px"
+  },
+
+  "th": {
+    "border": "3px solid black",
+    "border-collapse": "collapse",
+    "padding": "5px"
   }
 }
 
@@ -87,9 +105,15 @@ class TEXT_field extends React.Component {
             primary={true}
             onClick = {this.getData}/>
             <div style={styles.relative}>
+              <table style={styles.table}>
+                <tr>
+                  <th style ={styles.th}><b>Date</b></th>
+                  <th style ={styles.th}><b>Heartrate</b></th>
+                </tr>
               {this.state.patientData.map((date,index) => (
-                <p>{date.date}: <b>{date.hr} bpm</b></p>
+                <tr><td style = {styles.td}>{date.date}</td><td style={styles.td}><b>{date.hr} bpm</b></td></tr>
               ))}
+              </table>
             </div>
         </div>
       </MuiThemeProvider>
