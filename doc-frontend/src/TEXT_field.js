@@ -32,21 +32,28 @@ var styles = {
     "position": "relative"
   },
 
+  "tableRel": {
+    "width": "500px",
+    "left": "-90px",
+    "position": "relative",
+    "marginTop": "5px"
+  },
+
   "table": {
-    "width": "100%",
     "border": "2px solid blue",
-    "border-collapse": "collapse"
+    "borderCollapse": "collapse",
+    "selectable": "false"
   },
 
   "td": {
     "border": "1px solid black",
-    "border-collapse": "collapse",
-    "padding": "5px"
+    "borderCollapse": "collapse",
+    "padding": "2px"
   },
 
   "th": {
     "border": "3px solid black",
-    "border-collapse": "collapse",
+    "borderCollapse": "collapse",
     "padding": "5px"
   }
 }
@@ -82,9 +89,6 @@ class TEXT_field extends React.Component {
       console.log(hrData);
       this.setState({"patientData": hrData});
       console.log(this.state.patientData);
-      let date_list = hrData.map((date, index, hrData) => {
-        console.log(date.date)
-      })
     })
   }
 
@@ -104,16 +108,22 @@ class TEXT_field extends React.Component {
             label="Get Patient Data"
             primary={true}
             onClick = {this.getData}/>
-            <div style={styles.relative}>
-              <table style={styles.table}>
-                <tr>
-                  <th style ={styles.th}><b>Date</b></th>
-                  <th style ={styles.th}><b>Heartrate</b></th>
-                </tr>
+            <div style={styles.tableRel}>
+              <Table style={styles.table}>
+                <TableHeader style={styles.th}>
+                  <TableRow>
+                  <TableHeaderColumn><h2>Date</h2></TableHeaderColumn>
+                  <TableHeaderColumn><h2>Heartrate</h2></TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
               {this.state.patientData.map((date,index) => (
-                <tr><td style = {styles.td}>{date.date}</td><td style={styles.td}><b>{date.hr} bpm</b></td></tr>
+                <TableRow><TableRowColumn style={styles.td}>{date.date}</TableRowColumn>
+                <TableRowColumn style = {styles.td}><b>{date.hr} bpm</b></TableRowColumn>
+                </TableRow>
               ))}
-              </table>
+                </TableBody>
+              </Table>
             </div>
         </div>
       </MuiThemeProvider>
