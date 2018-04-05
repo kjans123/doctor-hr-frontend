@@ -3,6 +3,7 @@ import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
+import AutoComplete from 'material-ui/AutoComplete'
 import {
   Table,
   TableBody,
@@ -63,13 +64,25 @@ class TEXT_field extends React.Component {
     super();
     this.state = {
       "stuffInTextField": "",
-      "patientData": ["nothing"]
+      "patientData": ["nothing"],
+      "dataSource": ["no_email"]
    }
   }
 
-  onstuffInTextFieldChange = (event) => {
+  onStuffInAuComChange = (searchText) => {
     //console.log(this.state.stuffInTextField);
-    this.setState({"stuffInTextField": event.target.value});
+    this.setState({"stuffInTextField": searchText});
+    var url_string_all_users = "http://vcm-3594.vm.duke.edu:5000/api/heart_rate/all_users"
+    axios.get(url_string_all_users).then( (response) => {
+      const resultUser = [];
+      for (let i=0; i < response.data.user_emails.length; i++) {
+        resultUser.push(
+          response.data.user_emails[i]
+        );
+      }
+      console.log(resultUser);
+      this.setState({"dataSource": resultUser});
+    })
 }
 
   getData = () => {
@@ -97,11 +110,12 @@ class TEXT_field extends React.Component {
       <MuiThemeProvider>
         <div style ={styles.absolute}>
           <div style={styles.relative}>
-            <TextField
-              style={styles.textFieldStyle}
-              id="text-field-email"
-              value={this.state.stuffInTextField}
-              onChange={this.onstuffInTextFieldChange}/></div>
+            <AutoComplete
+              hintText ="Type user email"
+              searchText={this.state.stuffInTextField}
+              onUpdateInput={this.onStuffInAuComChange}
+              dataSource = {this.state.dataSource}
+              style={styles.textFieldStyle}/></div>
           <RaisedButton
             id = "get-button"
             style={styles.buttonStyle}
