@@ -5,7 +5,7 @@ Web based app that receives user email and queries online database through a fla
 ![alt text](https://github.com/kjans123/doctor-hr-frontend/blob/master/screenshot.PNG)
 
 ## Setup
-1) 'git clone git@github.com:/kjans123/doctor-hr-frontend'
-2) 'cd doctor-hr-frontend/doc-frontend'
-3) 'npm install'
-4) 'npm start' 
+1) `git clone git@github.com:/kjans123/doctor-hr-frontend`
+2) `cd doctor-hr-frontend/doc-frontend`
+3) `npm install`
+4) `npm start` 
